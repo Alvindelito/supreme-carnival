@@ -7,20 +7,20 @@
 # Setup Server
 FROM node:14-stretch
 
-USER node
+# USER node
 
-RUN mkdir /home/node/code
+RUN mkdir /home/node/app
 
-WORKDIR /home/node/code
+WORKDIR /home/node/app
 
-COPY --chown=node:node package-lock.json package.json ./
+COPY package.json ./
 
-RUN npm ci
+RUN npm install
+
+COPY . ./
 
 RUN npm run build
 
-COPY --chown=node:node . .
-
 EXPOSE 3001
 
-CMD ["node", "/server/index.js"]
+CMD ["node", "./server/index.js"]

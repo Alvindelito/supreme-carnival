@@ -27,7 +27,6 @@ app.get('/list', async (req, res) => {
 
 // add to grocery list
 app.post('/list', async (req, res) => {
-  console.log(req);
   try {
     const createItem = await Grocery.create({
       name: req.body.name,
