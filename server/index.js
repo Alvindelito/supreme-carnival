@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const db = 'grocerylist';
+const url = process.env.MONGO_CONNECTION_STRING || 'mongodb://localhost:27017';
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -61,9 +63,9 @@ app.put('/list/:id', async (req, res) => {
   }
 });
 
-app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '../build')));
 
-connect('mongodb://localhost:27017/grocerylist')
+connect(`${url}/grocerylist`)
   .then(() =>
     app.listen(3001, () => {
       console.log('listening on port 3001');
