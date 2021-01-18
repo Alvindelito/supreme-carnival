@@ -1,16 +1,10 @@
-import { createUseStyles } from 'react-jss';
-const useStyles = createUseStyles({
-  complete: {
-    textDecoration: 'line-through',
-  },
-  incomplete: {
-    textDecoration: 'none',
-  },
-});
+import styled from 'styled-components';
+
+const GroceryItem = styled.li`
+  text-decoration: ${(props) => (props.complete ? 'line-through' : 'none')};
+`;
 
 const Item = ({ item, fetchList }) => {
-  const classes = useStyles();
-
   const toggleComplete = async function () {
     try {
       await fetch(`http://localhost:3001/list/${item._id}`, {
@@ -43,13 +37,10 @@ const Item = ({ item, fetchList }) => {
   };
 
   return (
-    <li
-      onClick={() => toggleComplete()}
-      className={item.isComplete ? classes.complete : classes.incomplete}
-    >
+    <GroceryItem complete={item.isComplete} onClick={() => toggleComplete()}>
       {item.name} {item.quantity}
       <button onClick={() => deleteItem()}>Delete</button>
-    </li>
+    </GroceryItem>
   );
 };
 
