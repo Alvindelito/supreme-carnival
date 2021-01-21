@@ -7,7 +7,7 @@ const GroceryForm = ({ fetchList }) => {
 
   const addGrocery = async function (e) {
     e.preventDefault();
-    await axios.post('http://localhost:3001/list', {
+    await axios.post('/list', {
       name: name,
       quantity: quantity,
     });

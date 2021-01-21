@@ -1,39 +1,19 @@
-import { useState, useEffect } from 'react';
-import GroceryForm from './GroceryForm';
 import Item from './Item';
-import axios from 'axios';
 
-const GroceryList = () => {
-  const [groceryList, setGroceryList] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchList = async () => {
-    try {
-      const response = await axios.get('/list');
-      setGroceryList(await response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchList();
-    setLoading(false);
-  }, []);
-
+const GroceryList = ({ groceries, fetchList, toggleComplete, deleteItem }) => {
+  console.log(groceries);
   return (
-    <div>
-      <GroceryForm fetchList={fetchList} />
-      <ul>
-        {loading ? (
-          <h3>loading</h3>
-        ) : (
-          groceryList.map((item, index) => (
-            <Item key={index} item={item} fetchList={fetchList} />
-          ))
-        )}
-      </ul>
-    </div>
+    <ul>
+      {groceries.map((item, index) => (
+        <Item
+          key={index}
+          item={item}
+          fetchList={fetchList}
+          toggleComplete={toggleComplete}
+          deleteItem={deleteItem}
+        />
+      ))}
+    </ul>
   );
 };
 
