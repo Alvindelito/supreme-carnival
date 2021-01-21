@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import axios from 'axios';
 
 const GroceryItem = styled.li`
   text-decoration: ${(props) => (props.complete ? 'line-through' : 'none')};
@@ -7,14 +8,8 @@ const GroceryItem = styled.li`
 const Item = ({ item, fetchList }) => {
   const toggleComplete = async function () {
     try {
-      await fetch(`http://localhost:3001/list/${item._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          isComplete: item.isComplete,
-        }),
+      await axios.put(`http://localhost:3001/list/${item._id}`, {
+        isComplete: item.isComplete,
       });
       fetchList();
     } catch (e) {
@@ -24,12 +19,7 @@ const Item = ({ item, fetchList }) => {
 
   const deleteItem = async function () {
     try {
-      await fetch(`http://localhost:3001/list/${item._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-type': 'application/json',
-        },
-      });
+      await axios.delete(`http://localhost:3001/list/${item._id}`);
       fetchList();
     } catch (e) {
       console.error(e);

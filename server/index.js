@@ -62,7 +62,8 @@ app.put('/list/:id', async (req, res) => {
   }
 });
 
-app.use('/', express.static(path.join(__dirname, '../build')));
+// development server
+app.use('/', express.static(path.join(__dirname, '../public')));
 
 connect(`${url}/grocerylist`)
   .then(() =>

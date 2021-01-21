@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import GroceryForm from './GroceryForm';
 import Item from './Item';
+import axios from 'axios';
 
 const GroceryList = () => {
   const [groceryList, setGroceryList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchList = async () => {
-    const response = await fetch('http://localhost:3001/list');
-    const groceries = await response.json();
-    setGroceryList(await groceries);
+    try {
+      const response = await axios.get('/list');
+      setGroceryList(await response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

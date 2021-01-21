@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const GroceryForm = ({ fetchList }) => {
   const [name, setName] = useState('');
@@ -6,15 +7,9 @@ const GroceryForm = ({ fetchList }) => {
 
   const addGrocery = async function (e) {
     e.preventDefault();
-    await fetch('http://localhost:3001/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: name,
-        quantity: quantity,
-      }),
+    await axios.post('http://localhost:3001/list', {
+      name: name,
+      quantity: quantity,
     });
     fetchList();
     setName('');
