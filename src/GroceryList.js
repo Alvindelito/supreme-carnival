@@ -1,7 +1,6 @@
 import Item from './Item';
 
 const GroceryList = ({ groceries, fetchList, toggleComplete, deleteItem }) => {
-  console.log(groceries);
   return (
     <ul>
       {groceries.map((item, index) => (

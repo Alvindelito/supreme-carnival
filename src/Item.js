@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import axios from 'axios';
 
 const GroceryItem = styled.li`
   text-decoration: ${(props) => (props.complete ? 'line-through' : 'none')};

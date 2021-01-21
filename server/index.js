@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const db = 'grocerylist';
 const url = process.env.MONGO_CONNECTION_STRING || 'mongodb://localhost:27017';
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -41,7 +40,7 @@ app.post('/list', async (req, res) => {
 
 // delete from grocery list
 app.delete('/list/:id', async (req, res) => {
-  const deleteItem = await Grocery.findByIdAndDelete({
+  await Grocery.findByIdAndDelete({
     _id: req.params.id,
   }).exec();
   res.status(200).send('successfully deleted item');
